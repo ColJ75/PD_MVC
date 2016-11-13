@@ -1,0 +1,37 @@
+﻿// Configure bundling and minification for the project.
+// More info at https://go.microsoft.com/fwlink/?LinkId=808241
+[
+	{
+		"outputFileName": "wwwroot/css/default.min.css",
+		"inputFiles": [
+			"wwwroot/css/default.css"
+		]
+	},
+	{
+		"outputFileName": "wwwroot/css/wide.min.css",
+		"inputFiles": [
+			"wwwroot/css/wide.css"
+		]
+	},
+	{
+		"outputFileName": "wwwroot/css/admin.min.css",
+		"inputFiles": [
+			"wwwroot/css/admin.css"
+		]
+	},
+	{
+		"outputFileName": "wwwroot/js/default.min.js",
+		"inputFiles": [
+			"wwwroot/js/unpacked/base64.js",
+			"wwwroot/js/unpacked/common.js",
+			"wwwroot/js/lib/jQuery.AutoComplete.js",
+			"wwwroot/js/lib/jquery.modalDialog.js",
+			"wwwroot/js/lib/jquery-ui-1.10.3.custom.min.js"
+		],
+		"minify": {
+			"enabled": true,
+			"renameLocals": true
+		},
+		"sourceMap": false
+	}
+]

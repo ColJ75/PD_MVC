@@ -1,0 +1,56 @@
+﻿@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+	ViewData["Title"] = "User Login";
+}
+
+<div class="in">
+	<section id="login">
+		<h2>@ViewData["Title"].</h2>
+
+		<p>Please enter your login details below.  Please remember your password is case sensitive.</p>
+
+		<form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+			<div asp-validation-summary="All"></div>
+			<div class="rw">
+				<div class="a"><label asp-for="Email"></label></div>
+				<div class="b">
+					<input asp-for="Email" />
+					<span asp-validation-for="Email"></span>
+				</div>
+			</div>
+			<div class="rw">
+				<div class="a"><label asp-for="Password"></label></div>
+				<div class="b">
+					<input asp-for="Password" />
+					<span asp-validation-for="Password"></span>
+				</div>
+			</div>
+			<div class="rw">
+				<div class="a"></div>
+				<div class="b">
+					<label asp-for="RememberMe">
+						<input asp-for="RememberMe" />
+						@Html.DisplayNameFor(m => m.RememberMe)
+					</label>
+				</div>
+			</div>
+			<div class="btn">
+				<button type="submit" class="b1">Log in</button>
+			</div>
+			<div class="rw sep">
+				<b>Forgot your password?</b>
+				<br>
+				<a asp-action="ForgotPassword">Enter your email address above and click here to receive a new one.</a>
+			</div>
+		</form>
+	</section>
+</div>
+
+@section Scripts {
+	@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
