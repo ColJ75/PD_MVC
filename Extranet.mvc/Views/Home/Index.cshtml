@@ -3,14 +3,7 @@
 }
 
 <h1>
-	Hi,
-	@if (User.Identity.IsAuthenticated)
-	{
-		@User.Identity.Name
-	}
-	else
-	{
-		@: anonymous
-	}
+	Hi @ViewData["UserName"]
 </h1>
 <p>This is the main content for the home page.</p>
+

@@ -1,0 +1,30 @@
+﻿{
+	"movies": [
+		{
+			"url": "when-harry-met-sally",
+			"id": 1006
+		},
+		{
+			"url": "ghostbusters",
+			"id": 1007
+		},
+		{
+			"url": "ghostbusters-2",
+			"id": 1008
+		},
+		{
+			"url": "rio-bravo",
+			"id": 1009
+		}
+	],
+	"products": [
+		{
+			"url": "just-testing",
+			"id": 1
+		},
+		{
+			"url": "another-one",
+			"id": 2
+		}
+	]
+}

@@ -1,22 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Extranet.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Hosting;
+
 
 namespace Extranet.Controllers
 {
 	public class HomeController : Controller
 	{
-		public IActionResult Index()
+		private readonly IHostingEnvironment _hostingEnvironment;
+		private readonly UserManager<ApplicationUser> _userManager;
+
+		public HomeController(IHostingEnvironment hostingEnvironment, UserManager<ApplicationUser> userManager)
 		{
+			_hostingEnvironment = hostingEnvironment;
+			_userManager = userManager;
+		}
+
+		public async Task<IActionResult> Index()
+		{
+			// default user name for none logged in users
+			ViewData["UserName"] = "anonymous";
+
+			// if logged in, update the user name
+			if (User.Identity.IsAuthenticated)
+			{
+				var user = await _userManager.GetUserAsync(HttpContext.User);
+				//var claims = User.Claims.Select(claim => new { claim.Type, claim.Value }).ToArray();
+				ViewData["UserName"] = string.Format("{0}", user.FirstName, user.LastName); ;
+			}
 			return View();
 		}
 
 		public IActionResult Error()
 		{
 			return View();
+		}
+
+		public IActionResult Sitemap()
+		{
+			var readJson = System.IO.File.ReadAllText(_hostingEnvironment.ContentRootPath + (@"/App_Data/sitemap.json"));
+			return View(JsonConvert.DeserializeObject<Models.HomeViewModel.JsonSitemap>(readJson));
 		}
 
 		public string Simple()

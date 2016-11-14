@@ -13,6 +13,7 @@ using Extranet.Data;
 using Extranet.Models;
 using Extranet.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 
 namespace Extranet
 {
@@ -75,15 +76,30 @@ namespace Extranet
 				app.UseExceptionHandler("/Home/Error");
 			}
 
+			app.UseDefaultFiles();
 			app.UseStaticFiles();
-
 			app.UseIdentity();
 
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
 					name: "default",
-					template: "{controller=Home}/{action=Index}/{id?}");
+					template: "{controller=Home}/{action=Index}/{id?}"
+				);
+
+				routes.MapRoute(
+					name: "movie",
+					template: "{*url}",
+					defaults: new { controller = "Movies", action = "Details" },
+					constraints: new { url = new Core.Routing.MoviesConstraint() }
+				);
+
+				routes.MapRoute(
+					name: "product",
+					template: "{*url}",
+					defaults: new { controller = "Product", action = "Index" },
+					constraints: new { url = new Core.Routing.ProductConstraint() }
+				);
 			});
 		}
 	}

@@ -41,7 +41,6 @@ namespace Extranet.Controllers
 		// GET: /Account/Login
 		[HttpGet]
 		[AllowAnonymous]
-		[RequireHttps]
 		public IActionResult Login(string returnUrl = null)
 		{
 			ViewData["ReturnUrl"] = returnUrl;
@@ -52,7 +51,6 @@ namespace Extranet.Controllers
 		// POST: /Account/Login
 		[HttpPost]
 		[AllowAnonymous]
-		[RequireHttps]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
 		{
@@ -88,22 +86,9 @@ namespace Extranet.Controllers
 		}
 
 		//
-		// GET: /Account/Logout
-		[HttpGet]
-		[AllowAnonymous]
-		[RequireHttps]
-		public async Task<IActionResult> Logout()
-		{
-			await _signInManager.SignOutAsync();
-			_logger.LogInformation(1, "User logged out.");
-			return RedirectToLocal("/");
-		}
-
-		//
 		// GET: /Account/Register
 		[HttpGet]
 		[AllowAnonymous]
-		[RequireHttps]
 		public IActionResult Register(string returnUrl = null)
 		{
 			ViewData["ReturnUrl"] = returnUrl;
@@ -114,14 +99,13 @@ namespace Extranet.Controllers
 		// POST: /Account/Register
 		[HttpPost]
 		[AllowAnonymous]
-		[RequireHttps]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
 		{
 			ViewData["ReturnUrl"] = returnUrl;
 			if (ModelState.IsValid)
 			{
-				var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+				var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
 				var result = await _userManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
 				{
@@ -140,6 +124,16 @@ namespace Extranet.Controllers
 
 			// If we got this far, something failed, redisplay form
 			return View(model);
+		}
+
+		//
+		// GET: /Account/LogOff
+		[HttpGet]
+		public async Task<IActionResult> LogOff(string returnUrl = null)
+		{
+			await _signInManager.SignOutAsync();
+			_logger.LogInformation(4, "User logged out.");
+			return RedirectToAction(nameof(HomeController.Index), "Home");
 		}
 
 		//
@@ -264,7 +258,6 @@ namespace Extranet.Controllers
 		// GET: /Account/ForgotPassword
 		[HttpGet]
 		[AllowAnonymous]
-		[RequireHttps]
 		public IActionResult ForgotPassword()
 		{
 			return View();
@@ -274,7 +267,6 @@ namespace Extranet.Controllers
 		// POST: /Account/ForgotPassword
 		[HttpPost]
 		[AllowAnonymous]
-		[RequireHttps]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
 		{
@@ -313,7 +305,6 @@ namespace Extranet.Controllers
 		// GET: /Account/ResetPassword
 		[HttpGet]
 		[AllowAnonymous]
-		[RequireHttps]
 		public IActionResult ResetPassword(string code = null)
 		{
 			return code == null ? View("Error") : View();
@@ -323,7 +314,6 @@ namespace Extranet.Controllers
 		// POST: /Account/ResetPassword
 		[HttpPost]
 		[AllowAnonymous]
-		[RequireHttps]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
 		{
@@ -350,7 +340,6 @@ namespace Extranet.Controllers
 		// GET: /Account/ResetPasswordConfirmation
 		[HttpGet]
 		[AllowAnonymous]
-		[RequireHttps]
 		public IActionResult ResetPasswordConfirmation()
 		{
 			return View();
@@ -360,7 +349,6 @@ namespace Extranet.Controllers
 		// GET: /Account/SendCode
 		[HttpGet]
 		[AllowAnonymous]
-		[RequireHttps]
 		public async Task<ActionResult> SendCode(string returnUrl = null, bool rememberMe = false)
 		{
 			var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
@@ -377,7 +365,6 @@ namespace Extranet.Controllers
 		// POST: /Account/SendCode
 		[HttpPost]
 		[AllowAnonymous]
-		[RequireHttps]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> SendCode(SendCodeViewModel model)
 		{
@@ -416,7 +403,6 @@ namespace Extranet.Controllers
 		// GET: /Account/VerifyCode
 		[HttpGet]
 		[AllowAnonymous]
-		[RequireHttps]
 		public async Task<IActionResult> VerifyCode(string provider, bool rememberMe, string returnUrl = null)
 		{
 			// Require that the user has already logged in via username/password or external login
@@ -432,7 +418,6 @@ namespace Extranet.Controllers
 		// POST: /Account/VerifyCode
 		[HttpPost]
 		[AllowAnonymous]
-		[RequireHttps]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> VerifyCode(VerifyCodeViewModel model)
 		{

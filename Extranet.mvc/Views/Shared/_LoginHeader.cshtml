@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Extranet.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+	// determine currently logged in user (if any - default user name is anonymous)
+	string userName = "anonymous";
+	if (SignInManager.IsSignedIn(User))
+	{
+		var user = await UserManager.GetUserAsync(User);
+		userName = string.Format("{0} {1}", user.FirstName, user.LastName);
+	}
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+	<ul class="nav navbar-nav navbar-right">
+		<li>
+			<a asp-controller="Manage" asp-action="Index" title="Manage">Logged in as @UserManager.GetUserName(User)</a>
+		</li>
+		<li>
+			<a asp-controller="Account" asp-action="LogOff">Logout</a>
+		</li>
+	</ul>
+}
+else
+{
+	<ul class="nav navbar-nav navbar-right">
+		<li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+		<li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
+	</ul>
+}

@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Extranet.Models
 {
-    // Add profile data for application users by adding properties to the ApplicationUser class
-    public class ApplicationUser : IdentityUser
-    {
-    }
+	// Add profile data for application users by adding properties to the ApplicationUser class
+	public class ApplicationUser : IdentityUser
+	{
+		public virtual string FirstName { get; set; }
+		public virtual string LastName { get; set; }
+	}
 }
