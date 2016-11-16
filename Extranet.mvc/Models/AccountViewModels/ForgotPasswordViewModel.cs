@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Extranet.Models.AccountViewModels
+namespace Website.Models.AccountViewModels
 {
     public class ForgotPasswordViewModel
     {

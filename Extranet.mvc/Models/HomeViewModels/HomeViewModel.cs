@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
-namespace Extranet.Models
+namespace Website.Models
 {
 	public class HomeViewModel
 	{

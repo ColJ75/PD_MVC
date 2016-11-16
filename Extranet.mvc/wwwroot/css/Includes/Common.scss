@@ -1,0 +1,8 @@
+﻿// common mixins
+@import 'Mixins';
+
+* {
+	@include box-sizing(border-box);
+}
+
+body { padding-top: 50px; padding-bottom: 20px; }

@@ -9,13 +9,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Extranet.Data;
-using Extranet.Models;
-using Extranet.Services;
+using Website.Data;
+using Website.Models;
+using Website.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
-namespace Extranet
+namespace Website
 {
 	public class Startup
 	{

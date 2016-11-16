@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Extranet.Models;
+using Website.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Hosting;
 
 
-namespace Extranet.Controllers
+namespace Website.Controllers
 {
 	public class HomeController : Controller
 	{

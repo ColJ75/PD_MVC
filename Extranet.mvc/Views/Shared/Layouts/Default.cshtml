@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>@ViewData["Title"] - Extranet</title>
+	<title>@ViewData["Title"] - Pin Digital</title>
 
 	<link href="//fonts.googleapis.com/css?family=Hammersmith+One&amp;v1" rel="stylesheet" type="text/css" />
 	<link rel="shortcut icon" href="~/favicon.ico" />
@@ -29,7 +29,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a asp-controller="Home" asp-action="Index" class="navbar-brand">Extranet</a>
+				<a asp-controller="Home" asp-action="Index" class="navbar-brand">Pin Digital</a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
@@ -40,7 +40,7 @@
 					<li><a asp-controller="Test" asp-action="Index">Test</a></li>
 					<li><a asp-controller="Test" asp-action="Test">Test</a></li>
 				</ul>
-				@await Html.PartialAsync("_LoginHeader")
+				@await Component.InvokeAsync("LoginOptions", new { type = Website.ViewComponents.LoginOptionType.SiteHeader })
 			</div>
 		</div>
 	</div>
@@ -48,7 +48,7 @@
 		@RenderBody()
 		<hr />
 		<footer>
-			@await Html.PartialAsync("_LoginFooter")
+			@await Component.InvokeAsync("LoginOptions", new { type = Website.ViewComponents.LoginOptionType.Default })
 		</footer>
 	</div>
 

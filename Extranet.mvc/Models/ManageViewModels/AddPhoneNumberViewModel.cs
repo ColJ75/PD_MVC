@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Extranet.Models.ManageViewModels
+namespace Website.Models.ManageViewModels
 {
     public class AddPhoneNumberViewModel
     {

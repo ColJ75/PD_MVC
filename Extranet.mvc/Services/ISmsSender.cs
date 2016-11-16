@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Extranet.Services
+namespace Website.Services
 {
     public interface ISmsSender
     {

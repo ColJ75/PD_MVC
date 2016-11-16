@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Extranet.Data.Migrations
+namespace Website.Data.Migrations
 {
 	[DbContext(typeof(ApplicationDbContext))]
 	partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -125,7 +125,7 @@ namespace Extranet.Data.Migrations
 					b.ToTable("AspNetUserTokens");
 				});
 
-			modelBuilder.Entity("Extranet.Models.ApplicationUser", b =>
+			modelBuilder.Entity("Website.Models.ApplicationUser", b =>
 				{
 					b.Property<string>("Id");
 
@@ -190,7 +190,7 @@ namespace Extranet.Data.Migrations
 
 			modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
 				{
-					b.HasOne("Extranet.Models.ApplicationUser")
+					b.HasOne("Website.Models.ApplicationUser")
 						.WithMany("Claims")
 						.HasForeignKey("UserId")
 						.OnDelete(DeleteBehavior.Cascade);
@@ -198,7 +198,7 @@ namespace Extranet.Data.Migrations
 
 			modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
 				{
-					b.HasOne("Extranet.Models.ApplicationUser")
+					b.HasOne("Website.Models.ApplicationUser")
 						.WithMany("Logins")
 						.HasForeignKey("UserId")
 						.OnDelete(DeleteBehavior.Cascade);
@@ -211,7 +211,7 @@ namespace Extranet.Data.Migrations
 						.HasForeignKey("RoleId")
 						.OnDelete(DeleteBehavior.Cascade);
 
-					b.HasOne("Extranet.Models.ApplicationUser")
+					b.HasOne("Website.Models.ApplicationUser")
 						.WithMany("Roles")
 						.HasForeignKey("UserId")
 						.OnDelete(DeleteBehavior.Cascade);

@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Extranet.Models;
-using Extranet.Models.ManageViewModels;
-using Extranet.Services;
+using Website.Models;
+using Website.Models.ManageViewModels;
+using Website.Services;
 
-namespace Extranet.Controllers
+namespace Website.Controllers
 {
     [Authorize]
     public class ManageController : Controller

@@ -1,0 +1,20 @@
+@model LoginOptionsViewModel
+
+@if (Model.IsLoggedIn)
+{
+	<p>
+		You are logged in as @Model.User.FirstName @Model.User.LastName
+		-
+		<a asp-controller="Account" asp-action="LogOff">Logout</a>
+	</p>
+}
+else
+{
+	<p>
+		You are not logged in
+		-
+		<a asp-controller="Account" asp-action="Login">Login</a>
+		/
+		<a asp-controller="Account" asp-action="Register">Register</a>
+	</p>
+}

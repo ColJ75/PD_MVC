@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using Extranet.Models;
-using Extranet.Models.AccountViewModels;
-using Extranet.Services;
+using Website.Models;
+using Website.Models.AccountViewModels;
+using Website.Services;
 
-namespace Extranet.Controllers
+namespace Website.Controllers
 {
 	[Authorize]
 	public class AccountController : Controller
