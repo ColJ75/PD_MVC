@@ -17,15 +17,15 @@ namespace Website.Controllers
 	[Authorize]
 	public class AccountController : Controller
 	{
-		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly SignInManager<ApplicationUser> _signInManager;
+		private readonly UserManager<ApplicationUserModel> _userManager;
+		private readonly SignInManager<ApplicationUserModel> _signInManager;
 		private readonly IEmailSender _emailSender;
 		private readonly ISmsSender _smsSender;
 		private readonly ILogger _logger;
 
 		public AccountController(
-			UserManager<ApplicationUser> userManager,
-			SignInManager<ApplicationUser> signInManager,
+			UserManager<ApplicationUserModel> userManager,
+			SignInManager<ApplicationUserModel> signInManager,
 			IEmailSender emailSender,
 			ISmsSender smsSender,
 			ILoggerFactory loggerFactory)
@@ -105,7 +105,7 @@ namespace Website.Controllers
 			ViewData["ReturnUrl"] = returnUrl;
 			if (ModelState.IsValid)
 			{
-				var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+				var user = new ApplicationUserModel { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
 				var result = await _userManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
 				{
@@ -217,7 +217,7 @@ namespace Website.Controllers
 				{
 					return View("ExternalLoginFailure");
 				}
-				var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+				var user = new ApplicationUserModel { UserName = model.Email, Email = model.Email };
 				var result = await _userManager.CreateAsync(user);
 				if (result.Succeeded)
 				{
@@ -456,7 +456,7 @@ namespace Website.Controllers
 			}
 		}
 
-		private Task<ApplicationUser> GetCurrentUserAsync()
+		private Task<ApplicationUserModel> GetCurrentUserAsync()
 		{
 			return _userManager.GetUserAsync(HttpContext.User);
 		}

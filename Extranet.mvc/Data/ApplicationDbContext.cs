@@ -8,7 +8,7 @@ using Website.Models;
 
 namespace Website.Data
 {
-	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+	public class ApplicationDbContext : IdentityDbContext<ApplicationUserModel>
 	{
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)

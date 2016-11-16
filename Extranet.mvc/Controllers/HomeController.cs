@@ -18,9 +18,9 @@ namespace Website.Controllers
 	public class HomeController : Controller
 	{
 		private readonly IHostingEnvironment _hostingEnvironment;
-		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly UserManager<ApplicationUserModel> _userManager;
 
-		public HomeController(IHostingEnvironment hostingEnvironment, UserManager<ApplicationUser> userManager)
+		public HomeController(IHostingEnvironment hostingEnvironment, UserManager<ApplicationUserModel> userManager)
 		{
 			_hostingEnvironment = hostingEnvironment;
 			_userManager = userManager;

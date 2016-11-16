@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Website.Models
 {
-	public class AlertViewModel
+	public class AlertModel
 	{
 		public string Message { get; set; }
 	}

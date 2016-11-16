@@ -10,10 +10,10 @@ namespace Website.ViewComponents
 {
 	public class LoginOptions : ViewComponent
 	{
-		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly SignInManager<ApplicationUser> _signInManager;
+		private readonly UserManager<ApplicationUserModel> _userManager;
+		private readonly SignInManager<ApplicationUserModel> _signInManager;
 
-		public LoginOptions(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+		public LoginOptions(UserManager<ApplicationUserModel> userManager, SignInManager<ApplicationUserModel> signInManager)
 		{
 			_userManager = userManager;
 			_signInManager = signInManager;

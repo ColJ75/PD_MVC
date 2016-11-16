@@ -15,15 +15,15 @@ namespace Website.Controllers
     [Authorize]
     public class ManageController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUserModel> _userManager;
+        private readonly SignInManager<ApplicationUserModel> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
 
         public ManageController(
-        UserManager<ApplicationUser> userManager,
-        SignInManager<ApplicationUser> signInManager,
+        UserManager<ApplicationUserModel> userManager,
+        SignInManager<ApplicationUserModel> signInManager,
         IEmailSender emailSender,
         ISmsSender smsSender,
         ILoggerFactory loggerFactory)
@@ -350,7 +350,7 @@ namespace Website.Controllers
             Error
         }
 
-        private Task<ApplicationUser> GetCurrentUserAsync()
+        private Task<ApplicationUserModel> GetCurrentUserAsync()
         {
             return _userManager.GetUserAsync(HttpContext.User);
         }
