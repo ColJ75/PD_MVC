@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace Website.Models
 {
 	// Add profile data for application users by adding properties to the ApplicationUser class
-	public class ApplicationUserModel : IdentityUser
+	public class ApplicationUser : IdentityUser
 	{
 		public virtual string FirstName { get; set; }
 		public virtual string LastName { get; set; }

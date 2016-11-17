@@ -10,10 +10,10 @@ namespace Website.ViewComponents
 {
 	public class Alert : ViewComponent
 	{
-		private readonly UserManager<ApplicationUserModel> _userManager;
-		private readonly SignInManager<ApplicationUserModel> _signInManager;
+		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly SignInManager<ApplicationUser> _signInManager;
 
-		public Alert(UserManager<ApplicationUserModel> userManager, SignInManager<ApplicationUserModel> signInManager)
+		public Alert(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
 		{
 			_userManager = userManager;
 			_signInManager = signInManager;

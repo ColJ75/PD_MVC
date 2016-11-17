@@ -6,6 +6,6 @@ namespace Website.Models
 	public class LoginOptionsViewModel
 	{
 		public bool IsLoggedIn { get; set; }
-		public ApplicationUserModel User { get; set; }
+		public ApplicationUser User { get; set; }
 	}
 }
