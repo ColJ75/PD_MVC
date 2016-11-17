@@ -132,6 +132,8 @@ namespace Website.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<DateTime>("DateAdded");
+
                     b.Property<string>("Email")
                         .HasAnnotation("MaxLength", 256);
 
@@ -159,6 +161,9 @@ namespace Website.Data.Migrations
 
                     b.Property<string>("SecurityStamp");
 
+                    b.Property<string>("Source")
+                        .HasAnnotation("MaxLength", 35);
+
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
@@ -174,6 +179,52 @@ namespace Website.Data.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("Website.Models.UserAddress", b =>
+                {
+                    b.Property<int>("AddressId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<byte>("AddressType");
+
+                    b.Property<string>("Area")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.Property<string>("Building")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.Property<string>("Company")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.Property<string>("County")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.Property<string>("Postcode")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 50);
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.Property<string>("Town")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("AddressId");
+
+                    b.ToTable("UserAddress");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

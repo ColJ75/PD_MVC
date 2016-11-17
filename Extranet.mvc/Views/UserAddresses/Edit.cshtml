@@ -1,0 +1,108 @@
+@model Website.Models.UserAddress
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>UserAddress</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="AddressId" />
+        <div class="form-group">
+            <label asp-for="AddressType" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="AddressType" class="form-control" />
+                <span asp-validation-for="AddressType" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Area" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Area" class="form-control" />
+                <span asp-validation-for="Area" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Building" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Building" class="form-control" />
+                <span asp-validation-for="Building" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Company" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Company" class="form-control" />
+                <span asp-validation-for="Company" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Country" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="County" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="County" class="form-control" />
+                <span asp-validation-for="County" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Postcode" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Postcode" class="form-control" />
+                <span asp-validation-for="Postcode" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Street" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Street" class="form-control" />
+                <span asp-validation-for="Street" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Town" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Town" class="form-control" />
+                <span asp-validation-for="Town" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UserId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+</body>
+</html>
