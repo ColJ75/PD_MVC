@@ -50,13 +50,15 @@ namespace Website
 				.AddDefaultTokenProviders();
 
 			services.AddMvc();
+			services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+			services.AddSession();
 
 			// Add application services.
 			services.AddTransient<IEmailSender, AuthMessageSender>();
 			services.AddTransient<ISmsSender, AuthMessageSender>();
 
 			// add require https filter so we can force ssl on specific routes
-			//services.Configure<MvcOptions>(options => { options.Filters.Add(new RequireHttpsAttribute()); });
+			services.AddMvc(options => { options.Filters.Add(new RequireHttpsAttribute()); });
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,12 +81,18 @@ namespace Website
 			app.UseDefaultFiles();
 			app.UseStaticFiles();
 			app.UseIdentity();
+			app.UseSession();
 
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}"
+				);
+
+				routes.MapRoute(
+					name: "account",
+					template: "account/{controller}/{action=Index}/{id?}"
 				);
 
 				routes.MapRoute(

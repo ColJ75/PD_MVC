@@ -11,11 +11,9 @@ namespace Website.Models
 		[Key]
 		public int AddressId { get; set; }
 
+		[Required]
 		public string UserId { get; set; }
 
-		public byte AddressType { get; set; }
-
-		[Required]
 		[Display(Name = "Company Name")]
 		[StringLength(100, ErrorMessage = "The {0} must be at no more than {1} characters long.")]
 		public string Company { get; set; }
@@ -51,8 +49,15 @@ namespace Website.Models
 		public string Postcode { get; set; }
 
 		[Required]
-		[Display(Name ="Country")]
+		[Display(Name = "Country")]
 		[StringLength(100, ErrorMessage = "The {0} must be at no more than {1} characters long.")]
 		public string Country { get; set; }
+
+
+		[Display(Name = "Default Invoice Address")]
+		public bool DefaultInvoice { get; set; }
+
+		[Display(Name = "Default Delivery Address")]
+		public bool DefaultDelivery { get; set; }
 	}
 }
