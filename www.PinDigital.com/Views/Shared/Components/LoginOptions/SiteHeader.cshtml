@@ -1,0 +1,23 @@
+@model LoginOptionsViewModel
+
+@if (Model.IsLoggedIn)
+{
+	<ul class="nav navbar-nav navbar-right">
+		<li>
+			<a asp-controller="Account" asp-action="Index" title="Account">Logged in as @Model.User.Email</a>
+		</li>
+		<li>
+			<a asp-controller="Account" asp-action="Index" title="Account">My Account</a>
+		</li>
+		<li>
+			<a asp-controller="Account" asp-action="LogOff">Logout</a>
+		</li>
+	</ul>
+}
+else
+{
+	<ul class="nav navbar-nav navbar-right">
+		<li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+		<li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
+	</ul>
+}

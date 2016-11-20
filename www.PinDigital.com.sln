@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "www.PinDigital.com", "Extranet.mvc\www.PinDigital.com.xproj", "{F47A776E-1176-49D7-A942-7A20BBD38BCB}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "www.PinDigital.com", "www.PinDigital.com\www.PinDigital.com.xproj", "{F47A776E-1176-49D7-A942-7A20BBD38BCB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2748776E-D4B0-478E-B017-F2909E39C085}"
 EndProject
