@@ -6,16 +6,12 @@
 
 <h2>Index</h2>
 
-<p>
-	<a asp-controller="AddressBook" asp-action="Create">Create New</a>
-</p>
+<p><a asp-controller="AddressBook" asp-action="Create">Create New</a></p>
 
 <table class="table">
 	<thead>
 		<tr>
-			<th>
-				Address
-			</th>
+			<th>Address</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -24,7 +20,10 @@
 		{
 			<tr>
 				<td>
-					@Html.DisplayFor(modelItem => item.Company)<br />
+					@if (!string.IsNullOrEmpty(item.Company))
+					{
+						@Html.DisplayFor(modelItem => item.Company)<br />
+					}
 					@Html.DisplayFor(modelItem => item.Building)<br />
 					@Html.DisplayFor(modelItem => item.Street)<br />
 					@Html.DisplayFor(modelItem => item.Area)<br />
