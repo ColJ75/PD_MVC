@@ -30,5 +30,9 @@ namespace Website.Data
 		}
 
 		public DbSet<UserAddress> UserAddress { get; set; }
-	}
+
+		public DbSet<CMSPage> CMSPage { get; set; }
+        //public DbSet<CMSPageVersion> CMSPageVersion { get; set; }
+        //public DbSet<CMSPageHistory> CMSPageHistory { get; set; }
+    }
 }

@@ -13,25 +13,27 @@ namespace www.PinDigital.com.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.1")
+                .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
                 {
-                    b.Property<string>("Id");
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
                     b.Property<string>("Name")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
+                        .IsUnique()
                         .HasName("RoleNameIndex");
 
                     b.ToTable("Role");
@@ -103,8 +105,6 @@ namespace www.PinDigital.com.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("UserRole");
                 });
 
@@ -125,7 +125,8 @@ namespace www.PinDigital.com.Migrations
 
             modelBuilder.Entity("Website.Models.ApplicationUser", b =>
                 {
-                    b.Property<string>("Id");
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
 
@@ -135,7 +136,7 @@ namespace www.PinDigital.com.Migrations
                     b.Property<DateTime>("DateAdded");
 
                     b.Property<string>("Email")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
 
@@ -148,10 +149,10 @@ namespace www.PinDigital.com.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
 
@@ -162,12 +163,12 @@ namespace www.PinDigital.com.Migrations
                     b.Property<string>("SecurityStamp");
 
                     b.Property<string>("Source")
-                        .HasAnnotation("MaxLength", 35);
+                        .HasMaxLength(35);
 
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
@@ -181,6 +182,20 @@ namespace www.PinDigital.com.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("Website.Models.CMSPage", b =>
+                {
+                    b.Property<string>("Url")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("ModifiedDate");
+
+                    b.Property<byte>("Status");
+
+                    b.HasKey("Url");
+
+                    b.ToTable("CMSPage");
+                });
+
             modelBuilder.Entity("Website.Models.UserAddress", b =>
                 {
                     b.Property<int>("AddressId")
@@ -188,22 +203,22 @@ namespace www.PinDigital.com.Migrations
 
                     b.Property<string>("Area")
                         .IsRequired()
-                        .HasAnnotation("MaxLength", 100);
+                        .HasMaxLength(100);
 
                     b.Property<string>("Building")
                         .IsRequired()
-                        .HasAnnotation("MaxLength", 100);
+                        .HasMaxLength(100);
 
                     b.Property<string>("Company")
-                        .HasAnnotation("MaxLength", 100);
+                        .HasMaxLength(100);
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasAnnotation("MaxLength", 100);
+                        .HasMaxLength(100);
 
                     b.Property<string>("County")
                         .IsRequired()
-                        .HasAnnotation("MaxLength", 100);
+                        .HasMaxLength(100);
 
                     b.Property<bool>("DefaultDelivery");
 
@@ -211,15 +226,15 @@ namespace www.PinDigital.com.Migrations
 
                     b.Property<string>("Postcode")
                         .IsRequired()
-                        .HasAnnotation("MaxLength", 50);
+                        .HasMaxLength(50);
 
                     b.Property<string>("Street")
                         .IsRequired()
-                        .HasAnnotation("MaxLength", 100);
+                        .HasMaxLength(100);
 
                     b.Property<string>("Town")
                         .IsRequired()
-                        .HasAnnotation("MaxLength", 100);
+                        .HasMaxLength(100);
 
                     b.Property<string>("UserId")
                         .IsRequired();
