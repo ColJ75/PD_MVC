@@ -187,13 +187,56 @@ namespace www.PinDigital.com.Migrations
                     b.Property<string>("Url")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("ModifiedBy");
+
                     b.Property<DateTime>("ModifiedDate");
 
                     b.Property<byte>("Status");
 
+                    b.Property<string>("Title")
+                        .IsRequired();
+
+                    b.Property<int>("VersionId");
+
                     b.HasKey("Url");
 
                     b.ToTable("CMSPage");
+                });
+
+            modelBuilder.Entity("Website.Models.CMSPageHistory", b =>
+                {
+                    b.Property<int>("ItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ModifiedBy");
+
+                    b.Property<DateTime>("ModifiedDate");
+
+                    b.Property<byte>("Status");
+
+                    b.Property<string>("Url");
+
+                    b.Property<int>("VersionId");
+
+                    b.HasKey("ItemId");
+
+                    b.ToTable("CMSPageHistory");
+                });
+
+            modelBuilder.Entity("Website.Models.CMSPageVersion", b =>
+                {
+                    b.Property<int>("VersionId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("VersionId");
+
+                    b.ToTable("CMSPageVersion");
                 });
 
             modelBuilder.Entity("Website.Models.UserAddress", b =>

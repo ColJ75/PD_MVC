@@ -95,12 +95,12 @@ namespace Website
 					template: "account/{controller}/{action=Index}/{id?}"
 				);
 
-				routes.MapRoute(
-					name: "movie",
-					template: "{*url}",
-					defaults: new { controller = "Movies", action = "Details" },
-					constraints: new { url = new Core.Routing.MoviesConstraint() }
-				);
+                routes.MapRoute(
+                    name: "cms",
+                    template: "{*url}",
+                    defaults: new { controller = "CMS", action = "Render" },
+                    constraints: new { url = new Core.Routing.CMSConstraint() }
+                );
 
 				routes.MapRoute(
 					name: "product",

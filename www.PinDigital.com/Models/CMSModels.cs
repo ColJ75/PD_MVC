@@ -14,18 +14,22 @@ namespace Website.Models
         [Display(Name = "Url")]
         public string Url { get; set; }
 
+        [Required]
+        [Display(Name = "Page Title")]
+        public string Title { get; set; }
+
         [Display(Name = "Status")]
         public byte Status { get; set; }
 
         [Display(Name = "Modified Date"), DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ModifiedDate { get; set; }
 
         [Display(Name = "Modified By")]
-        int ModifiedBy { get; set; }
+        public int ModifiedBy { get; set; }
 
         [Display(Name = "Version Id")]
-        int VersionId { get; set; }
+        public int VersionId { get; set; }
 
         public CMSPage()
         {
@@ -40,13 +44,13 @@ namespace Website.Models
         [Key]
         [Display(Name = "Version Id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        int VersionId { get; set; }
+        public int VersionId { get; set; }
 
         [Display(Name = "Url")]
         public string Url { get; set; }
 
         [Display(Name = "Content")]
-        string Content { get; set; }
+        public string Content { get; set; }
     }
 
     public class CMSPageHistory
@@ -62,13 +66,13 @@ namespace Website.Models
         public byte Status { get; set; }
 
         [Display(Name = "Modified Date"), DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ModifiedDate { get; set; }
 
         [Display(Name = "Modified By")]
-        int ModifiedBy { get; set; }
+        public int ModifiedBy { get; set; }
 
         [Display(Name = "Version Id")]
-        int VersionId { get; set; }
+        public int VersionId { get; set; }
     }
 }

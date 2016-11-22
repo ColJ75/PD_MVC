@@ -10,7 +10,26 @@ using Newtonsoft.Json;
 
 namespace Website.Core.Routing
 {
-	public class MoviesConstraint : IRouteConstraint
+    public class CMSConstraint : IRouteConstraint
+    {
+        public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
+        {
+            if (!values.ContainsKey(routeKey)) return false;
+
+            // check if the url is a valid movie url - if so return true, and store movie id in the context
+            var readJson = File.ReadAllText(@"App_Data/sitemap.json");
+            Classes.JsonSitemap jsonSitemap = JsonConvert.DeserializeObject<Classes.JsonSitemap>(readJson);
+            Classes.CMS cms = jsonSitemap.cms.FirstOrDefault(m => m.url == values[routeKey].ToString());
+            if (cms != null)
+            {
+                httpContext.Items["CMSUrl"] = cms.url;
+                return true;
+            }
+            else return false;
+        }
+    }
+
+    public class MoviesConstraint : IRouteConstraint
 	{
 		public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
 		{

@@ -1,0 +1,9 @@
+@model Website.Models.CMSViewModel
+
+@{
+	ViewData["Title"] = Model.Page.Url;
+}
+
+<div>
+	@Html.Raw(Model.Content)
+</div>

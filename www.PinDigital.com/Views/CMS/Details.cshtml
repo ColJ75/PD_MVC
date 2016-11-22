@@ -1,0 +1,106 @@
+@model Website.Models.CMSViewModel
+
+@{
+	ViewData["Title"] = "Page Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Page.Url)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Page.Url)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Page.Status)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Page.Status)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Page.ModifiedDate)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Page.ModifiedDate)
+		</dd>
+	</dl>
+</div>
+
+<div>
+	<a asp-action="Edit" asp-route-url="@Model.Page.Url">Edit</a> |
+	<a href="/@Model.Page.Url" target="_blank">View</a> |
+	<a asp-action="Index">Back to List</a>
+</div>
+
+<hr />
+<h3>History</h3>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.History[0].ModifiedDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.History[0].ModifiedBy)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.History[0].Status)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.History[0].VersionId)
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.History)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.ModifiedDate)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.ModifiedBy)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Status)
+				</td>
+				<td>
+					<a href="#@item.VersionId">@Html.DisplayFor(modelItem => item.VersionId)</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+<hr />
+<h3>Versions</h3>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Versions[0].VersionId)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Versions[0].Content)
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.Versions)
+		{
+			<tr>
+				<td>
+					<a name="@item.VersionId"></a>
+					@Html.DisplayFor(modelItem => item.VersionId)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Content)
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
