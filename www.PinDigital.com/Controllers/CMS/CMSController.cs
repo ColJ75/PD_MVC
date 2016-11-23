@@ -46,14 +46,13 @@ namespace Website.Controllers
             model.Content = version != null ? version.Content : string.Empty;
 
             // if the url was passed in via the context, use the render view, otherwise show the detail view
-            return View((HttpContext.Items["CMSUrl"] != null) ? "Render" : "Details", model);
+            return View(model);
         }
 
         // GET: CMS/Details/Url
         [Route("CMS/Details/{Url?}")]
         public async Task<IActionResult> Details(string url)
         {
-            if (url == null && HttpContext.Items["CMSUrl"] != null) url = (string)HttpContext.Items["CMSUrl"];
             if (url == null) return NotFound();
 
             var cmsPage = await _context.CMSPage.SingleOrDefaultAsync(p => p.Url == url);
@@ -69,7 +68,7 @@ namespace Website.Controllers
             page.Content = page.Versions.Count() > 0 ? page.Versions.OrderByDescending(v => v.VersionId).First().Content : string.Empty;
 
             // if the url was passed in via the context, use the render view, otherwise show the detail view
-            return View((HttpContext.Items["CMSUrl"] != null) ? "Render" : "Details", page);
+            return View(page);
         }
 
         // GET: CMS/Create
