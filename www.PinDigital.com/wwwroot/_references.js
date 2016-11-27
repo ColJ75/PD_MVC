@@ -3,7 +3,6 @@
 /// <reference path="js/lib/jquery.autocomplete.js" />
 /// <reference path="js/lib/jquery.modaldialog.js" />
 /// <reference path="js/lib/jquery-ui-1.10.3.custom.min.js" />
-/// <reference path="js/site.min.js" />
 /// <reference path="js/unpacked/base64.js" />
 /// <reference path="js/unpacked/common.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />

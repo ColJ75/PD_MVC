@@ -45,6 +45,9 @@ namespace Website.Controllers
             var version = await _context.CMSPageVersion.SingleOrDefaultAsync(v => v.VersionId == cmsPage.VersionId);
             model.Content = version != null ? version.Content : string.Empty;
 
+            //// set editable viewdata flag
+            //ViewData["Editable"] = "1";
+
             // if the url was passed in via the context, use the render view, otherwise show the detail view
             return View(model);
         }

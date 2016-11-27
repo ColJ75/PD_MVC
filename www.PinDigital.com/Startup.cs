@@ -49,7 +49,7 @@ namespace Website
 				.AddEntityFrameworkStores<ApplicationDbContext>()
 				.AddDefaultTokenProviders();
 
-			services.AddMvc();
+            services.AddMvc();
 			services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
 			services.AddSession();
 
@@ -59,10 +59,13 @@ namespace Website
 
 			// add require https filter so we can force ssl on specific routes
 			services.AddMvc(options => { options.Filters.Add(new RequireHttpsAttribute()); });
-		}
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+            // Add Kendo UI services to the services container
+            services.AddKendo();
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 		{
 			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 			loggerFactory.AddDebug();
@@ -71,7 +74,6 @@ namespace Website
 			{
 				app.UseDeveloperExceptionPage();
 				app.UseDatabaseErrorPage();
-				app.UseBrowserLink();
 			}
 			else
 			{
@@ -109,6 +111,9 @@ namespace Website
 					constraints: new { url = new Core.Routing.ProductConstraint() }
 				);
 			});
-		}
-	}
+
+            // Configure Kendo UI
+            app.UseKendo(env);
+        }
+    }
 }
