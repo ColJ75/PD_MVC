@@ -8,3 +8,6 @@ body {
   padding-top: 50px;
   padding-bottom: 20px; }
 
+.k-editor-inline {
+  border-width: 0 !important; }
+

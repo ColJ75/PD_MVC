@@ -1,0 +1,52 @@
+@using Kendo.Mvc.UI
+
+@model Website.Models.CMSViewModel
+
+@removeTagHelper "*, Microsoft.AspNet.Mvc.Razor"
+@removeTagHelper "*, Microsoft.AspNetCore.Mvc.Razor"
+
+@{
+	ViewData["Title"] = Model.Page.Url;
+}
+
+<script>
+	function change(e) {
+		$('#content').html(e.sender.body.innerHTML);
+    }
+</script>
+
+<form asp-action="Render">
+	<div class="form-horizontal">
+		@(Html.Kendo().Editor()
+			.Name("editor")
+			.Tag("div")
+			.HtmlAttributes(new { style = "height:440px" })
+			.Resizable(resizable => resizable.Content(true).Toolbar(true))
+			.Events(e => e.Change("change"))
+			.ImageBrowser(imageBrowser => imageBrowser
+				.Image("~/cms/{0}")
+				.Read("Read", "ImageBrowser")
+				.Create("Create", "ImageBrowser")
+				.Destroy("Destroy", "ImageBrowser")
+				.Upload("Upload", "ImageBrowser")
+				.Thumbnail("Thumbnail", "ImageBrowser")
+			)
+			.FileBrowser(fileBrowser => fileBrowser
+				.File("~/cms/{0}")
+				.Read("Read", "FileBrowser")
+				.Create("Create", "FileBrowser")
+				.Destroy("Destroy", "FileBrowser")
+				.Upload("Upload", "FileBrowser")
+			)
+			.Value(Model.Content)
+		)
+		<textarea id="content" asp-for="Content" class="hide"></textarea>
+
+		<div class="form-group">
+			<div class="col-md-12">
+				<input type="submit" value="Save" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
+</form>
+
