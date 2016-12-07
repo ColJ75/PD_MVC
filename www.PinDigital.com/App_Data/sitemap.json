@@ -9,15 +9,5 @@
 		{
 			"url": "something"
 		}
-	],
-	"products": [
-		{
-			"url": "just-testing",
-			"id": 1
-		},
-		{
-			"url": "another-one",
-			"id": 2
-		}
 	]
 }

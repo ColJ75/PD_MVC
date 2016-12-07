@@ -122,6 +122,7 @@
     </DotNetCliToolReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Core\Classes\" />
     <Folder Include="wwwroot\cms\" />
   </ItemGroup>
   <PropertyGroup Label="Configuration">

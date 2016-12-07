@@ -19,7 +19,7 @@ namespace Website.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<ApplicationUser>().HasIndex(u => u.UserId);
+            builder.Entity<Models.ApplicationUser>().HasIndex(u => u.UserId);
 
             // rename the AspNet user tables to something more in keeping with the usual data structure
             builder.Entity<ApplicationUser>().ToTable("User");

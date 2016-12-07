@@ -14,7 +14,6 @@ using Website.Models;
 using Website.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Website.Core.Routing.Middleware;
 
 namespace Website
 {
@@ -110,7 +109,6 @@ namespace Website
 			app.UseStaticFiles();
 			app.UseIdentity();
 			app.UseSession();
-            //app.UseCustomRouting();
             app.UseMvc(routes => Core.Routing.Routes.MapRoutes(routes));
 
 			// Configure Kendo UI
