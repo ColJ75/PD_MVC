@@ -1,13 +1,1 @@
-﻿{
-	"cms": [
-		{
-			"url": "test"
-		},
-		{
-			"url": "testing"
-		},
-		{
-			"url": "something"
-		}
-	]
-}
+{"Pages":[{"Url":"something","Title":"Something","Type":"CMS"},{"Url":"test","Title":"Test Page","Type":"CMS"},{"Url":"testing","Title":"Testing","Type":"CMS"}]}

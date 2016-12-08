@@ -1,4 +1,4 @@
-@model CMSPage
+@model CMSViewModel
 
 @{
 	ViewData["Title"] = "Edit Page";
@@ -10,30 +10,30 @@
 	<div class="form-horizontal">
 		<hr />
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-		<input type="hidden" asp-for="Url" />
+		<input type="hidden" asp-for="Page.Url" />
 		<div class="form-group">
-			<label asp-for="Title" class="col-md-2 control-label"></label>
+			<label asp-for="Page.Title" class="col-md-2 control-label"></label>
 			<div class="col-md-10">
-				<input asp-for="Title" class="form-control" />
-				<span asp-validation-for="Title" class="text-danger"></span>
+				<input asp-for="Page.Title" class="form-control" />
+				<span asp-validation-for="Page.Title" class="text-danger"></span>
 			</div>
 		</div>
 		<div class="form-group">
-			<label asp-for="Url" class="col-md-2 control-label"></label>
+			<label asp-for="Page.Url" class="col-md-2 control-label"></label>
 			<div class="col-md-10">
-				<input asp-for="Url" class="form-control" />
-				<span asp-validation-for="Url" class="text-danger"></span>
+				<input asp-for="Page.Url" class="form-control" />
+				<span asp-validation-for="Page.Url" class="text-danger"></span>
 			</div>
 		</div>
 		<div class="form-group">
-			<label asp-for="Status" class="col-md-2 control-label"></label>
+			<label asp-for="Page.Status" class="col-md-2 control-label"></label>
 			<div class="col-md-10">
-				<select asp-for="Status" class="form-control">
+				<select asp-for="Page.Status" class="form-control">
 					<option value="0">Hidden</option>
 					<option value="1">Active</option>
 					<option value="2">Deleted</option>
 				</select>
-				<span asp-validation-for="Status" class="text-danger"></span>
+				<span asp-validation-for="Page.Status" class="text-danger"></span>
 			</div>
 		</div>
 		<div class="form-group">
@@ -47,6 +47,78 @@
 <div>
 	<a asp-action="Index">Back to List</a>
 </div>
+
+<hr />
+<h3>History</h3>
+<table class="table table-striped table-bordered table-hover table-responsive">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.History[0].ModifiedDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.History[0].ModifiedBy)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.History[0].VersionId)
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.History)
+		{
+			<tr>
+				<td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					@Html.DisplayFor(modelItem => item.ModifiedDate)
+				</td>
+				<td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					@Html.DisplayFor(modelItem => item.ModifiedByName)
+				</td>
+				<td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<a href="#@item.VersionId">@Html.DisplayFor(modelItem => item.VersionId)</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+<hr />
+<h3>Versions</h3>
+<table class="table table-striped table-bordered table-hover table-responsive">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Versions[0].VersionId)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Versions[0].Content)
+			</th>
+			<th>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.Versions)
+		{
+			<tr>
+				<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+					<a name="@item.VersionId"></a>
+					@Html.DisplayFor(modelItem => item.VersionId)
+				</td>
+				<td class="col-lg-8 col-md-8 col-sm-7 col-xs-7">
+					@Html.DisplayFor(modelItem => item.Content)
+				</td>
+				<td class="col-lg-2 col-md-2 col-sm-3 col-xs-3 text-center">
+					@if (item.VersionId != Model.Page.VersionId)
+					{
+						<a asp-action="UseVersion" asp-route-url="@item.Url" asp-route-id="@item.VersionId" class="btn btn-sm btn-default">Use</a>
+						<a asp-action="ArchiveVersion" asp-route-url="@item.Url" asp-route-id="@item.VersionId" class="btn btn-sm btn-default">Archive</a>
+					}
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
 
 @section Scripts {
 	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

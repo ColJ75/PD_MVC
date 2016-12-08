@@ -238,6 +238,8 @@ namespace www.PinDigital.com.Migrations
 
                     b.Property<string>("Content");
 
+                    b.Property<byte>("Status");
+
                     b.Property<string>("Url");
 
                     b.HasKey("VersionId");

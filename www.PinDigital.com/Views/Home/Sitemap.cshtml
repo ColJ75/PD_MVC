@@ -1,17 +1,16 @@
-﻿@model  HomeViewModel.JsonSitemap
+﻿@model  HomeViewModel
 
 @{
 	ViewData["Title"] = "Sitemap";
 }
-<h2>@ViewData["Title"].</h2>
+<h2>@ViewData["Title"]</h2>
 
-<h3>Static Content (CMS)</h3>
 <table class="table table-striped table-bordered table-hover table-responsive">
-	@foreach (var item in Model.cms)
+	@foreach (var page in Model.SitemapPages)
 	{
 		<tr>
 			<td>
-				<a href="/@item.url">@item.url</a>
+				<a href="/@page.Url">@page.Title</a>
 			</td>
 		</tr>
 	}

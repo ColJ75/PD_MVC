@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Website.Core.Messaging;
 using Website.Data;
 using Website.Models;
-using Website.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 
 namespace Website
 {
@@ -63,6 +58,13 @@ namespace Website
 				.AddEntityFrameworkStores<ApplicationDbContext>()
 				.AddDefaultTokenProviders();
 
+			services.Configure<IISOptions>(options =>
+			{
+				options.AutomaticAuthentication = false;
+				options.ForwardClientCertificate = false;
+				options.ForwardWindowsAuthentication = false;
+			});
+
 			services.AddMvc();
 			services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
 			services.AddSession();
@@ -83,7 +85,7 @@ namespace Website
 			services.AddTransient<ISmsSender, AuthMessageSender>();
 
 			// add require https filter so we can force ssl on specific routes
-			services.AddMvc(options => { options.Filters.Add(new RequireHttpsAttribute()); });
+			//services.AddMvc(options => { options.Filters.Add(new RequireHttpsAttribute()); });
 
 			// Add Kendo UI services to the services container
 			services.AddKendo();
@@ -109,7 +111,7 @@ namespace Website
 			app.UseStaticFiles();
 			app.UseIdentity();
 			app.UseSession();
-            app.UseMvc(routes => Core.Routing.Routes.MapRoutes(routes));
+			app.UseMvc(routes => Core.Routing.Routes.MapRoutes(routes));
 
 			// Configure Kendo UI
 			app.UseKendo(env);
