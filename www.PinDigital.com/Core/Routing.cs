@@ -9,52 +9,50 @@ using System.Threading.Tasks;
 
 namespace Website.Core.Routing
 {
-    public class Routes
-    {
-        public static IRouteBuilder MapRoutes(IRouteBuilder routes)
-        {
-            routes.MapRoute(
-                name: "default",
-                template: "{controller=Home}/{action=Index}/{id?}"
-            );
+	public class Routes
+	{
+		public static IRouteBuilder MapRoutes(IRouteBuilder routes)
+		{
+			routes.MapRoute(
+				name: "default",
+				template: "{controller=Home}/{action=Index}/{id?}"
+			);
 
-            routes.MapRoute(
-                name: "account",
-                template: "account/{controller}/{action=Index}/{id?}"
-            );
+			routes.MapRoute(
+				name: "account",
+				template: "account/{controller}/{action=Index}/{id?}"
+			);
 
-            routes.MapRoute(
-                name: "cms",
-                template: "{*url}",
-                defaults: new { controller = "CMS", action = "Render" },
-                constraints: new { url = new Core.Routing.Constraints.CMSConstraint() }
-            );
+			routes.MapRoute(
+				name: "cms",
+				template: "{*url}",
+				defaults: new { controller = "CMS", action = "Render" },
+				constraints: new { url = new Core.Routing.Constraints.CMSConstraint() }
+			);
 
-            return routes;
-        }
-    }
+			return routes;
+		}
+	}
 
-    public class Constraints
-    {
-        public class CMSConstraint : IRouteConstraint
-        {
-            public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
-            {
-                if (!values.ContainsKey(routeKey)) return false;
+	public class Constraints
+	{
+		public class CMSConstraint : IRouteConstraint
+		{
+			public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
+			{
+				if (!values.ContainsKey(routeKey)) return false;
 
-                // check if the url is a valid movie url - if so return true, and store movie id in the context
-                var readJson = File.ReadAllText(@"App_Data/sitemap.json");
-                Models.JsonSitemap jsonSitemap = JsonConvert.DeserializeObject<Models.JsonSitemap>(readJson);
-                Models.CMS cms = jsonSitemap.cms.FirstOrDefault(m => m.url == values[routeKey].ToString());
-                if (cms != null)
-                {
-                    httpContext.Items["CMSUrl"] = cms.url;
-                    return true;
-                }
-                else return false;
-            }
-        }
-    }
+				// try and find the url in the sitemap - if so work out what type of page it is and set some context properties for use later on
+				Models.Sitemap.Page page = Core.Sitemap.Load(values[routeKey].ToString(), Models.Sitemap.PageType.CMS);
+				if (page != null)
+				{
+					httpContext.Items["CMSUrl"] = page.Url;
+					return true;
+				}
+				else return false;
+			}
+		}
+	}
 }
 
 //namespace Website.Core.Routing.Middleware

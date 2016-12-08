@@ -122,7 +122,6 @@
     </DotNetCliToolReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core\Classes\" />
     <Folder Include="wwwroot\cms\" />
   </ItemGroup>
   <PropertyGroup Label="Configuration">
@@ -139,4 +138,9 @@
     <Exec Command="dotnet publish-iis --publish-folder $(TargetDir) --framework $(TargetFrameworkIdentifier),Version=$(TargetFrameworkVersion)" />
   </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Remove="Core\Classes\**" />
+    <Content Remove="Core\Classes\**" />
+    <EmbeddedResource Remove="Core\Classes\**" />
+  </ItemGroup>
 </Project>
