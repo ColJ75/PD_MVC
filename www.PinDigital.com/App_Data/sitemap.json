@@ -4,17 +4,10 @@
 			"url": "test"
 		},
 		{
-			"url": "something"
-		}
-	],
-	"products": [
-		{
-			"url": "just-testing",
-			"id": 1
+			"url": "testing"
 		},
 		{
-			"url": "another-one",
-			"id": 2
+			"url": "something"
 		}
 	]
 }

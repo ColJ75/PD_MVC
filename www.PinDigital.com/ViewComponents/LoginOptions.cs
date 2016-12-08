@@ -8,28 +8,33 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Website.ViewComponents
 {
-	public class LoginOptions : ViewComponent
-	{
-		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly SignInManager<ApplicationUser> _signInManager;
+    public class LoginOptions : ViewComponent
+    {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-		public LoginOptions(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
-		{
-			_userManager = userManager;
-			_signInManager = signInManager;
-		}
+        public LoginOptions(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
 
-		public IViewComponentResult Invoke(LoginOptionType type = LoginOptionType.Default)
-		{
-			// determine currently logged in user (if any - default user name is anonymous)
-			LoginOptionsViewModel options = new LoginOptionsViewModel() { IsLoggedIn = _signInManager.IsSignedIn(HttpContext.User), User = _userManager.GetUserAsync(HttpContext.User).Result };
-			return View(type.ToString(), options);
-		}
+        public IViewComponentResult Invoke(LoginOptionType type = LoginOptionType.Default)
+        {
+            // determine currently logged in user (if any - default user name is anonymous), and check for specific permissions
+            LoginOptionsViewModel options = new LoginOptionsViewModel()
+            {
+                IsLoggedIn = _signInManager.IsSignedIn(HttpContext.User),
+                AllowCMS = HttpContext.User.Claims.Any(c => c.Type == "CMS" && c.Value == "View"),
+                User = _userManager.GetUserAsync(HttpContext.User).Result
+            };
+            return View(type.ToString(), options);
+        }
 
-	}
-	public enum LoginOptionType
-	{
-		Default,
-		SiteHeader
-	}
+    }
+    public enum LoginOptionType
+    {
+        Default,
+        SiteHeader
+    }
 }

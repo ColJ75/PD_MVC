@@ -10,18 +10,13 @@ namespace Website.ViewComponents
 {
 	public class Alert : ViewComponent
 	{
-		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly SignInManager<ApplicationUser> _signInManager;
-
-		public Alert(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+		public Alert()
 		{
-			_userManager = userManager;
-			_signInManager = signInManager;
 		}
 
 		public IViewComponentResult Invoke(string message)
 		{
-			AlertModel alert = new AlertModel() { Message = message };
+			Models.Alert alert = new Models.Alert() { Message = message };
 			return View("Alert", alert);
 		}
 	}

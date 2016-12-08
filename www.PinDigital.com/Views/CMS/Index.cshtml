@@ -1,4 +1,4 @@
-@model IEnumerable<Website.Models.CMSPage>
+@model IEnumerable<CMSViewModel>
 
 @{
 	ViewData["Title"] = "CMS Pages";
@@ -12,13 +12,16 @@
 	<thead>
 		<tr>
 			<th>
-				@Html.DisplayNameFor(model => model.Url)
+				@Html.DisplayNameFor(model => model.Page.Title)
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.Status)
+				@Html.DisplayNameFor(model => model.Page.Url)
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.ModifiedDate)
+				@Html.DisplayNameFor(model => model.Page.Status)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Page.ModifiedDate)
 			</th>
 			<th></th>
 		</tr>
@@ -28,18 +31,21 @@
 		{
 			<tr>
 				<td>
-					@Html.DisplayFor(modelItem => item.Url)
+					@Html.DisplayFor(modelItem => item.Page.Title)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.Status)
+					@Html.DisplayFor(modelItem => item.Page.Url)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.ModifiedDate)
+					@Html.DisplayFor(modelItem => item.Page.Status)
 				</td>
 				<td>
-					<a asp-action="Edit" asp-route-url="@item.Url">Edit</a> |
-					<a asp-action="Details" asp-route-url="@item.Url">Details</a> |
-					<a asp-action="Delete" asp-route-url="@item.Url">Delete</a>
+					@Html.DisplayFor(modelItem => item.Page.ModifiedDate)
+				</td>
+				<td>
+					<a asp-action="Edit" asp-route-url="@item.Page.Url">Edit</a> |
+					<a asp-action="Details" asp-route-url="@item.Page.Url">Details</a> |
+					<a asp-action="Delete" asp-route-url="@item.Page.Url">Delete</a>
 				</td>
 			</tr>
 		}

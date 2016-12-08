@@ -6,6 +6,12 @@
 		<li>
 			<a asp-controller="Account" asp-action="Index" title="Account">Logged in as @Model.User.Email</a>
 		</li>
+		@if (Model.IsLoggedIn)
+		{
+			<li>
+				<a asp-controller="CMS" asp-action="Index" title="CMS">CMS</a>
+			</li>
+		}
 		<li>
 			<a asp-controller="Account" asp-action="Index" title="Account">My Account</a>
 		</li>

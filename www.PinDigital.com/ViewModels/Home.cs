@@ -10,16 +10,9 @@ namespace Website.Models
             public string url { get; set; }
         }
 
-        public class Product
-        {
-            public string url { get; set; }
-            public int id { get; set; }
-        }
-
         public class JsonSitemap
         {
             public IList<CMS> cms { get; set; }
-            public IList<Product> products { get; set; }
         }
     }
 }

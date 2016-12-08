@@ -167,6 +167,10 @@ namespace www.PinDigital.com.Migrations
 
                     b.Property<bool>("TwoFactorEnabled");
 
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
@@ -178,6 +182,8 @@ namespace www.PinDigital.com.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasName("UserNameIndex");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("User");
                 });
