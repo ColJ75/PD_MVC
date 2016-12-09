@@ -105,14 +105,19 @@
 					<a name="@item.VersionId"></a>
 					@Html.DisplayFor(modelItem => item.VersionId)
 				</td>
-				<td class="col-lg-8 col-md-8 col-sm-7 col-xs-7">
+				<td class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
 					@Html.DisplayFor(modelItem => item.Content)
 				</td>
-				<td class="col-lg-2 col-md-2 col-sm-3 col-xs-3 text-center">
+				<td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center">
+					@if (item.VersionId == Model.Page.VersionId)
+					{
+						<span class="glyphicon glyphicon-check"></span>
+						<span class="glyphicon glyphicon-lock"></span>
+					}
 					@if (item.VersionId != Model.Page.VersionId)
 					{
-						<a asp-action="UseVersion" asp-route-url="@item.Url" asp-route-id="@item.VersionId" class="btn btn-sm btn-default">Use</a>
-						<a asp-action="ArchiveVersion" asp-route-url="@item.Url" asp-route-id="@item.VersionId" class="btn btn-sm btn-default">Archive</a>
+						<a asp-action="UseVersion" asp-route-url="@item.Url" asp-route-id="@item.VersionId" class="glyphicon glyphicon-unchecked"></a>
+						<a asp-action="ArchiveVersion" asp-route-url="@item.Url" asp-route-id="@item.VersionId" class="glyphicon glyphicon-trash"></a>
 					}
 				</td>
 			</tr>

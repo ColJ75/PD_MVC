@@ -3,20 +3,17 @@
 @if (Model.IsLoggedIn)
 {
 	<ul class="nav navbar-nav navbar-right">
-		<li>
-			<a asp-controller="Account" asp-action="Index" title="Account">Logged in as @Model.User.Email</a>
-		</li>
-		@if (Model.IsLoggedIn)
+		@if (Context.User.HasClaim(c => c.Type == "CMS" && c.Value == "Edit"))
 		{
 			<li>
-				<a asp-controller="CMS" asp-action="Index" title="CMS">CMS</a>
+				<a asp-controller="CMS" asp-action="Index" title="CMS"><span class="glyphicon glyphicon-pencil"></span>CMS</a>
 			</li>
 		}
 		<li>
-			<a asp-controller="Account" asp-action="Index" title="Account">My Account</a>
+			<a asp-controller="Account" asp-action="Index" title="Account"><span class="glyphicon glyphicon-cog"></span>My Account</a>
 		</li>
 		<li>
-			<a asp-controller="Account" asp-action="LogOff">Logout</a>
+			<a asp-controller="Account" asp-action="LogOff"><span class="glyphicon glyphicon-log-out"></span>Logout</a>
 		</li>
 	</ul>
 }
@@ -24,6 +21,6 @@ else
 {
 	<ul class="nav navbar-nav navbar-right">
 		<li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
-		<li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
+		<li><a asp-area="" asp-controller="Account" asp-action="Login"><span class="glyphicon glyphicon-log-in"></span>Log in</a></li>
 	</ul>
 }

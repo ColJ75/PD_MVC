@@ -11,3 +11,6 @@ body {
 .k-editor-inline {
   border-width: 0 !important; }
 
+a > span.glyphicon {
+  margin-right: 5px; }
+

@@ -19,7 +19,7 @@
 		@foreach (var item in Model)
 		{
 			<tr>
-				<td class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+				<td class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
 					@if (!string.IsNullOrEmpty(item.Company))
 					{
 						@Html.DisplayFor(modelItem => item.Company)<br />
@@ -32,9 +32,9 @@
 					@Html.DisplayFor(modelItem => item.Postcode)<br />
 					@Html.DisplayFor(modelItem => item.Country)
 				</td>
-				<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
-					<a asp-action="Edit" asp-route-id="@item.AddressId" class="btn btn-sm btn-default">Edit</a>
-					<a asp-action="Delete" asp-route-id="@item.AddressId" class="btn btn-sm btn-default">Delete</a>
+				<td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center">
+					<a asp-action="Edit" asp-route-id="@item.AddressId" class="glyphicon glyphicon-edit"></a>
+					<a asp-action="Delete" asp-route-id="@item.AddressId" class="glyphicon glyphicon-trash"></a>
 				</td>
 			</tr>
 		}
