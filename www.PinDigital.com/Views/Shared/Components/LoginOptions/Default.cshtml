@@ -3,7 +3,7 @@
 @if (Model.IsLoggedIn)
 {
 	<p>
-		You are logged in as @Model.User.FirstName @Model.User.LastName
+		You are logged in as @Context.User.Claims.Single(c => c.Type == "FullName").Value
 		-
 		<a asp-controller="Account" asp-action="LogOff">Logout</a>
 	</p>

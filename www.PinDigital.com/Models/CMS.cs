@@ -10,6 +10,9 @@ namespace Website.Models
 	public class CMSPage
 	{
 		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int PageId { get; set; }
+
 		[Required]
 		[Display(Name = "Url")]
 		public string Url { get; set; }
@@ -19,23 +22,23 @@ namespace Website.Models
 		public string Title { get; set; }
 
 		[Display(Name = "Status")]
-		public byte Status { get; set; }
+		public Core.Enums.CMS.PageStatus Status { get; set; }
 
 		[Display(Name = "Modified Date"), DataType(DataType.DateTime)]
-		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
 		public DateTime ModifiedDate { get; set; }
 
 		[Display(Name = "Modified By")]
-		public int ModifiedBy { get; set; }
+		public string ModifiedBy { get; set; }
 
 		[Display(Name = "Version Id")]
-		public int VersionId { get; set; }
+		public int? VersionId { get; set; }
 
 		public CMSPage()
 		{
-			Status = 1;
-			ModifiedBy = 0;
-			VersionId = 1;
+			Status = Core.Enums.CMS.PageStatus.Hidden;
+			ModifiedBy = null;
+			VersionId = null;
 		}
 	}
 
@@ -46,8 +49,8 @@ namespace Website.Models
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int VersionId { get; set; }
 
-		[Display(Name = "Url")]
-		public string Url { get; set; }
+		[Display(Name = "Page Id")]
+		public int PageId { get; set; }
 
 		[Display(Name = "Content")]
 		public string Content { get; set; }
@@ -62,20 +65,26 @@ namespace Website.Models
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int ItemId { get; set; }
 
+		[Display(Name = "Page Id")]
+		public int PageId { get; set; }
+
 		[Display(Name = "Url")]
 		public string Url { get; set; }
 
+		[Display(Name = "Page Title")]
+		public string Title { get; set; }
+
 		[Display(Name = "Status")]
-		public byte Status { get; set; }
+		public Core.Enums.CMS.PageStatus Status { get; set; }
 
 		[Display(Name = "Modified Date"), DataType(DataType.DateTime)]
 		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = false)]
 		public DateTime ModifiedDate { get; set; }
 
 		[Display(Name = "Modified By")]
-		public int ModifiedBy { get; set; }
+		public string ModifiedBy { get; set; }
 
-		[Display(Name = "Version Id")]
-		public int VersionId { get; set; }
+		[Display(Name = "Version")]
+		public int? VersionId { get; set; }
 	}
 }

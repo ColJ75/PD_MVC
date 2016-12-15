@@ -43,8 +43,8 @@
 					@Html.DisplayFor(modelItem => item.Page.ModifiedDate)
 				</td>
 				<td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center">
-					<a asp-action="Edit" asp-route-url="@item.Page.Url" class="glyphicon glyphicon-edit"></a>
-					<a asp-action="Delete" asp-route-url="@item.Page.Url" class="glyphicon glyphicon-trash"></a>
+					<a asp-action="Edit" asp-route-PageId="@item.Page.PageId" class="glyphicon glyphicon-edit"></a>
+					<a asp-action="Delete" asp-route-PageId="@item.Page.PageId" class="glyphicon glyphicon-trash"></a>
 				</td>
 			</tr>
 		}

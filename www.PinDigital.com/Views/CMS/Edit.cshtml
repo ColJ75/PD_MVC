@@ -6,11 +6,10 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<form asp-action="Edit">
+<form asp-action="Save">
 	<div class="form-horizontal">
 		<hr />
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-		<input type="hidden" asp-for="Page.Url" />
 		<div class="form-group">
 			<label asp-for="Page.Title" class="col-md-2 control-label"></label>
 			<div class="col-md-10">
@@ -60,6 +59,15 @@
 				@Html.DisplayNameFor(model => model.History[0].ModifiedBy)
 			</th>
 			<th>
+				@Html.DisplayNameFor(model => model.History[0].Title)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.History[0].Url)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.History[0].Status)
+			</th>
+			<th>
 				@Html.DisplayNameFor(model => model.History[0].VersionId)
 			</th>
 		</tr>
@@ -68,13 +76,22 @@
 		@foreach (var item in Model.History)
 		{
 			<tr>
-				<td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+				<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 					@Html.DisplayFor(modelItem => item.ModifiedDate)
 				</td>
-				<td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+				<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 					@Html.DisplayFor(modelItem => item.ModifiedByName)
 				</td>
-				<td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+				<td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+					@Html.DisplayFor(modelItem => item.Title)
+				</td>
+				<td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+					@Html.DisplayFor(modelItem => item.Url)
+				</td>
+				<td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+					@Html.DisplayFor(modelItem => item.Status)
+				</td>
+				<td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
 					<a href="#@item.VersionId">@Html.DisplayFor(modelItem => item.VersionId)</a>
 				</td>
 			</tr>
@@ -116,8 +133,8 @@
 					}
 					@if (item.VersionId != Model.Page.VersionId)
 					{
-						<a asp-action="UseVersion" asp-route-url="@item.Url" asp-route-id="@item.VersionId" class="glyphicon glyphicon-unchecked"></a>
-						<a asp-action="ArchiveVersion" asp-route-url="@item.Url" asp-route-id="@item.VersionId" class="glyphicon glyphicon-trash"></a>
+						<a asp-action="UseVersion" asp-route-pageId="@item.PageId" asp-route-id="@item.VersionId" class="glyphicon glyphicon-unchecked"></a>
+						<a asp-action="ArchiveVersion" asp-route-pageId="@item.PageId" asp-route-id="@item.VersionId" class="glyphicon glyphicon-trash"></a>
 					}
 				</td>
 			</tr>

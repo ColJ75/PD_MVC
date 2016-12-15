@@ -12,7 +12,7 @@ namespace Website.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public virtual int UserId { get; set; }
+        public virtual int LegacyUserId { get; set; }
 
         public virtual string FirstName { get; set; }
 

@@ -1,11 +1,9 @@
 @using Kendo.Mvc.UI
 
-@model CMSViewModel
+@model CMSRenderViewModel
 
 @{
-	ViewData["Title"] = Model.Page.Title;
+	ViewData["Title"] = Model.Title;
 }
 
 @Html.Raw(Model.Content)
-
-@Html.Raw(Context.Items["PageType"])

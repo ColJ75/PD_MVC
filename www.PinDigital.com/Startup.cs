@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 using Website.Core.Messaging;
 using Website.Data;
 using Website.Models;
@@ -85,7 +86,10 @@ namespace Website
 			services.AddTransient<ISmsSender, AuthMessageSender>();
 
 			// add require https filter so we can force ssl on specific routes
-			//services.AddMvc(options => { options.Filters.Add(new RequireHttpsAttribute()); });
+			services
+				//.AddMvc(options => { options.Filters.Add(new RequireHttpsAttribute()); })
+				.AddMvc()
+				.AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
 			// Add Kendo UI services to the services container
 			services.AddKendo();

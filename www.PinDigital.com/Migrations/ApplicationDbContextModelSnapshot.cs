@@ -4,8 +4,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Website.Data;
+using Website.Core.Enums;
 
-namespace www.PinDigital.com.Migrations
+namespace Website.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -144,6 +145,10 @@ namespace www.PinDigital.com.Migrations
 
                     b.Property<string>("LastName");
 
+                    b.Property<int>("LegacyUserId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -167,14 +172,12 @@ namespace www.PinDigital.com.Migrations
 
                     b.Property<bool>("TwoFactorEnabled");
 
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LegacyUserId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -183,28 +186,32 @@ namespace www.PinDigital.com.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("User");
                 });
 
             modelBuilder.Entity("Website.Models.CMSPage", b =>
                 {
-                    b.Property<string>("Url")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("PageId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ModifiedBy");
+                    b.Property<string>("ModifiedBy");
 
                     b.Property<DateTime>("ModifiedDate");
 
-                    b.Property<byte>("Status");
+                    b.Property<int>("Status");
 
                     b.Property<string>("Title")
                         .IsRequired();
 
-                    b.Property<int>("VersionId");
+                    b.Property<string>("Url")
+                        .IsRequired();
 
-                    b.HasKey("Url");
+                    b.Property<int?>("VersionId");
+
+                    b.HasKey("PageId");
+
+                    b.HasIndex("Url");
 
                     b.ToTable("CMSPage");
                 });
@@ -215,15 +222,19 @@ namespace www.PinDigital.com.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ModifiedBy");
+                    b.Property<string>("ModifiedBy");
 
                     b.Property<DateTime>("ModifiedDate");
 
-                    b.Property<byte>("Status");
+                    b.Property<int>("PageId");
+
+                    b.Property<int>("Status");
+
+                    b.Property<string>("Title");
 
                     b.Property<string>("Url");
 
-                    b.Property<int>("VersionId");
+                    b.Property<int?>("VersionId");
 
                     b.HasKey("ItemId");
 
@@ -238,9 +249,9 @@ namespace www.PinDigital.com.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<byte>("Status");
+                    b.Property<int>("PageId");
 
-                    b.Property<string>("Url");
+                    b.Property<byte>("Status");
 
                     b.HasKey("VersionId");
 
@@ -250,7 +261,8 @@ namespace www.PinDigital.com.Migrations
             modelBuilder.Entity("Website.Models.UserAddress", b =>
                 {
                     b.Property<int>("AddressId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Area")
                         .IsRequired()
@@ -291,6 +303,8 @@ namespace www.PinDigital.com.Migrations
                         .IsRequired();
 
                     b.HasKey("AddressId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserAddress");
                 });

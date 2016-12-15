@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Website.Models;
-using Website.Models.AccountViewModels;
+using Website.ViewModels;
 using Website.Core.Messaging;
 using Microsoft.AspNetCore.Http.Authentication;
 
@@ -70,17 +70,6 @@ namespace Website.Controllers
 				{
 					_logger.LogInformation(1, "User logged in.");
 
-					// retrieve user details so we can add claims
-					//var user = await _userManager.FindByEmailAsync(model.Email);
-
-					// set up user claims
-					//var claims = new List<Claim>();
-					//claims.Add(new Claim(ClaimTypes.Name, string.Format("{0} {1}", user.FirstName, user.LastName), ClaimValueTypes.String));
-					//claims.Add(new Claim("UserId", user.UserId.ToString(), ClaimValueTypes.Integer32));
-					//claims.Add(new Claim(ClaimTypes.Role, "Administrator", ClaimValueTypes.String));
-					//claims.Add(new Claim(ClaimTypes.Role, "Customer", ClaimValueTypes.String));
-					//await _userManager.AddClaimsAsync(user, claims);
-
 					return RedirectToLocal(returnUrl);
 				}
 				if (result.RequiresTwoFactor)
@@ -135,6 +124,12 @@ namespace Website.Controllers
 					//    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
 					await _signInManager.SignInAsync(user, isPersistent: false);
 					_logger.LogInformation(3, "User created a new account with password.");
+
+					// add custom user claims
+					var claims = new List<Claim>();
+					claims.Add(new Claim(Core.Security.ClaimTypes.FullName, string.Format("{0} {1}", user.FirstName, user.LastName), ClaimValueTypes.String));
+					await _userManager.AddClaimsAsync(user, claims);
+
 					return RedirectToLocal(returnUrl);
 				}
 				AddErrors(result);
@@ -259,15 +254,9 @@ namespace Website.Controllers
 		[AllowAnonymous]
 		public async Task<IActionResult> ConfirmEmail(string userId, string code)
 		{
-			if (userId == null || code == null)
-			{
-				return View("Error");
-			}
+			if (userId == null || code == null) return View("Error");
 			var user = await _userManager.FindByIdAsync(userId);
-			if (user == null)
-			{
-				return View("Error");
-			}
+			if (user == null) return View("Error");
 			var result = await _userManager.ConfirmEmailAsync(user, code);
 			return View(result.Succeeded ? "ConfirmEmail" : "Error");
 		}
@@ -335,10 +324,8 @@ namespace Website.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
 		{
-			if (!ModelState.IsValid)
-			{
-				return View(model);
-			}
+			if (!ModelState.IsValid) return View(model);
+
 			var user = await _userManager.FindByNameAsync(model.Email);
 			if (user == null)
 			{
@@ -370,10 +357,7 @@ namespace Website.Controllers
 		public async Task<ActionResult> SendCode(string returnUrl = null, bool rememberMe = false)
 		{
 			var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-			if (user == null)
-			{
-				return View("Error");
-			}
+			if (user == null) return View("Error");
 			var userFactors = await _userManager.GetValidTwoFactorProvidersAsync(user);
 			var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
 			return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
@@ -386,23 +370,14 @@ namespace Website.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> SendCode(SendCodeViewModel model)
 		{
-			if (!ModelState.IsValid)
-			{
-				return View();
-			}
+			if (!ModelState.IsValid) return View();
 
 			var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-			if (user == null)
-			{
-				return View("Error");
-			}
+			if (user == null) return View("Error");
 
 			// Generate the token and send it
 			var code = await _userManager.GenerateTwoFactorTokenAsync(user, model.SelectedProvider);
-			if (string.IsNullOrWhiteSpace(code))
-			{
-				return View("Error");
-			}
+			if (string.IsNullOrWhiteSpace(code)) return View("Error");
 
 			var message = "Your security code is: " + code;
 			if (model.SelectedProvider == "Email")
@@ -425,10 +400,7 @@ namespace Website.Controllers
 		{
 			// Require that the user has already logged in via username/password or external login
 			var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-			if (user == null)
-			{
-				return View("Error");
-			}
+			if (user == null) return View("Error");
 			return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
 		}
 
@@ -439,10 +411,7 @@ namespace Website.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> VerifyCode(VerifyCodeViewModel model)
 		{
-			if (!ModelState.IsValid)
-			{
-				return View(model);
-			}
+			if (!ModelState.IsValid) return View(model);
 
 			// The following code protects for brute force attacks against the two factor codes.
 			// If a user enters incorrect codes for a specified amount of time then the user account
@@ -479,10 +448,8 @@ namespace Website.Controllers
 				: "";
 
 			var user = await GetCurrentUserAsync();
-			if (user == null)
-			{
-				return View("Error");
-			}
+			if (user == null) return View("Error");
+
 			var model = new IndexViewModel
 			{
 				HasPassword = await _userManager.HasPasswordAsync(user),
@@ -527,16 +494,11 @@ namespace Website.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
 		{
-			if (!ModelState.IsValid)
-			{
-				return View(model);
-			}
+			if (!ModelState.IsValid) return View(model);
+
 			// Generate the token and send it
 			var user = await GetCurrentUserAsync();
-			if (user == null)
-			{
-				return View("Error");
-			}
+			if (user == null) return View("Error");
 			var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.PhoneNumber);
 			await _smsSender.SendSmsAsync(model.PhoneNumber, "Your security code is: " + code);
 			return RedirectToAction(nameof(VerifyPhoneNumber), new { PhoneNumber = model.PhoneNumber });
@@ -580,10 +542,8 @@ namespace Website.Controllers
 		public async Task<IActionResult> VerifyPhoneNumber(string phoneNumber)
 		{
 			var user = await GetCurrentUserAsync();
-			if (user == null)
-			{
-				return View("Error");
-			}
+			if (user == null) return View("Error");
+
 			var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber);
 			// Send an SMS to verify the phone number
 			return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
@@ -595,10 +555,7 @@ namespace Website.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
 		{
-			if (!ModelState.IsValid)
-			{
-				return View(model);
-			}
+			if (!ModelState.IsValid) return View(model);
 			var user = await GetCurrentUserAsync();
 			if (user != null)
 			{
@@ -647,10 +604,8 @@ namespace Website.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
 		{
-			if (!ModelState.IsValid)
-			{
-				return View(model);
-			}
+			if (!ModelState.IsValid) return View(model);
+
 			var user = await GetCurrentUserAsync();
 			if (user != null)
 			{
@@ -681,10 +636,7 @@ namespace Website.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> SetPassword(SetPasswordViewModel model)
 		{
-			if (!ModelState.IsValid)
-			{
-				return View(model);
-			}
+			if (!ModelState.IsValid) return View(model);
 
 			var user = await GetCurrentUserAsync();
 			if (user != null)
@@ -711,10 +663,8 @@ namespace Website.Controllers
 				: message == ManageMessageId.Error ? "An error has occurred."
 				: "";
 			var user = await GetCurrentUserAsync();
-			if (user == null)
-			{
-				return View("Error");
-			}
+			if (user == null) return View("Error");
+
 			var userLogins = await _userManager.GetLoginsAsync(user);
 			var otherLogins = _signInManager.GetExternalAuthenticationSchemes().Where(auth => userLogins.All(ul => auth.AuthenticationScheme != ul.LoginProvider)).ToList();
 			ViewData["ShowRemoveButton"] = user.PasswordHash != null || userLogins.Count > 1;
@@ -743,15 +693,11 @@ namespace Website.Controllers
 		public async Task<ActionResult> LinkLoginCallback()
 		{
 			var user = await GetCurrentUserAsync();
-			if (user == null)
-			{
-				return View("Error");
-			}
+			if (user == null) return View("Error");
+
 			var info = await _signInManager.GetExternalLoginInfoAsync(await _userManager.GetUserIdAsync(user));
-			if (info == null)
-			{
-				return RedirectToAction(nameof(ManageLogins), new { Message = ManageMessageId.Error });
-			}
+			if (info == null) return RedirectToAction(nameof(ManageLogins), new { Message = ManageMessageId.Error });
+
 			var result = await _userManager.AddLoginAsync(user, info);
 			var message = result.Succeeded ? ManageMessageId.AddLoginSuccess : ManageMessageId.Error;
 			return RedirectToAction(nameof(ManageLogins), new { Message = message });
@@ -774,14 +720,8 @@ namespace Website.Controllers
 
 		private IActionResult RedirectToLocal(string returnUrl)
 		{
-			if (Url.IsLocalUrl(returnUrl))
-			{
-				return Redirect(returnUrl);
-			}
-			else
-			{
-				return RedirectToAction(nameof(HomeController.Index), "Home");
-			}
+			if (Url.IsLocalUrl(returnUrl)) return Redirect(returnUrl);
+			else return RedirectToAction(nameof(HomeController.Index), "Home");
 		}
 
 		public enum ManageMessageId

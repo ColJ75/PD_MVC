@@ -40,7 +40,7 @@ namespace Website.Core
 
 			// retrieve list of active cms pages and add those to the sitemap
 			var q = from p in context.CMSPage
-					where p.Status != 2
+					where p.Status != Enums.CMS.PageStatus.Deleted
 					select new
 					{
 						Url = p.Url,

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Website.Models;
+using Website.ViewModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Hosting;
@@ -27,18 +28,8 @@ namespace Website.Controllers
 			_roleManager = roleManager;
 		}
 
-		public async Task<IActionResult> Index()
+		public IActionResult Index()
 		{
-			// default user name for none logged in users
-			ViewData["UserName"] = "anonymous";
-
-			// if logged in, update the user name
-			if (User.Identity.IsAuthenticated)
-			{
-				var user = await _userManager.GetUserAsync(HttpContext.User);
-				//var claims = User.Claims.Select(claim => new { claim.Type, claim.Value }).ToArray();
-				ViewData["UserName"] = string.Format("{0}", user.FirstName, user.LastName); ;
-			}
 			return View();
 		}
 

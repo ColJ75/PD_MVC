@@ -3,7 +3,7 @@
 }
 
 <h1>
-	Hi @ViewData["UserName"]
+	Hi @(Context.User.Identity.IsAuthenticated ? Context.User.Claims.Single(c => c.Type == "FullName").Value : "Guest")
 </h1>
 <p>This is the main content for the home page.</p>
 

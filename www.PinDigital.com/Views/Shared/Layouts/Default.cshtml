@@ -11,8 +11,8 @@
 	<link rel="shortcut icon" href="~/favicon.ico" />
 
 	<environment names="Development">
-		<link rel="stylesheet" href="~/lib/kendo-ui/styles/kendo.common-nova.min.css" />
-		<link rel="stylesheet" href="~/lib/kendo-ui/styles/kendo.nova.min.css" />
+		<link href="/lib/kendo-ui/styles/kendo.common-material.min.css" rel="stylesheet" />
+		<link href="/lib/kendo-ui/styles/kendo.material.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 		<link rel="stylesheet" href="~/css/default.min.css" />
 	</environment>
@@ -21,13 +21,13 @@
 			  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
 			  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
 		<link rel="stylesheet"
-			  href="https://kendo.cdn.telerik.com/2016.3.1028/styles/kendo.common-nova.min.css"
-			  asp-fallback-href="~/lib/kendo-ui/styles/kendo.common-nova.min.css"
+			  href="https://kendo.cdn.telerik.com/2016.3.1028/styles/kendo.common-material.min.css"
+			  asp-fallback-href="~/lib/kendo-ui/styles/kendo.common-material.min.css"
 			  asp-fallback-test-class="k-common-test-class"
 			  asp-fallback-test-property="opacity" asp-fallback-test-value="0" />
 		<link rel="stylesheet"
-			  href="https://kendo.cdn.telerik.com/2016.3.1028/styles/kendo.nova.min.css"
-			  asp-fallback-href="~/lib/kendo-ui/styles/kendo.nova.min.css"
+			  href="https://kendo.cdn.telerik.com/2016.3.1028/styles/kendo.material.min.css"
+			  asp-fallback-href="~/lib/kendo-ui/styles/kendo.material.min.css"
 			  asp-fallback-test-class="k-theme-test-class"
 			  asp-fallback-test-property="opacity" asp-fallback-test-value="0" />
 		<link rel="stylesheet" href="~/css/default.min.css" />
@@ -35,9 +35,9 @@
 
 	<environment names="Development">
 		<script src="~/lib/jquery/dist/jquery.js"></script>
-		<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="~/lib/kendo-ui/js/kendo.all.min.js"></script>
 		<script src="~/lib/kendo-ui/js/kendo.aspnetmvc.min.js"></script>
+		<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="~/js/default.min.js"></script>
 	</environment>
 	<environment names="Staging,Production">
@@ -57,7 +57,7 @@
 				asp-fallback-src="~/lib/kendo-ui/js/kendo.aspnetmvc.min.js"
 				asp-fallback-test="kendo.data.transports['aspnetmvc-ajax']">
 		</script>
-		<script src="~/js/site.min.js"></script>
+		<script src="~/js/default.min.js"></script>
 	</environment>
 </head>
 <body>
