@@ -41,7 +41,9 @@
 		"Microsoft.AspNetCore.Session": "1.1.0",
 		"Newtonsoft.Json": "9.0.1",
 		"BundlerMinifier.Core": "2.2.306",
-		"Telerik.UI.for.AspNet.Core": "2016.3.1118"
+		"Telerik.UI.for.AspNet.Core": "2016.3.1118",
+		"knockoutjs": "3.4.0",
+		"Microsoft.AspNetCore.ApiHelp.Core": "1.0.0"
 	},
 
 	"tools": {

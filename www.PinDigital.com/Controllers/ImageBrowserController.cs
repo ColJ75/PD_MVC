@@ -26,6 +26,25 @@ namespace Website.Controllers
 		public override IActionResult Thumbnail(string path)
 		{
 			var fullPath = Path.Combine("~/", contentFolderRoot, path);
+
+			//var files = new FilesRepository();
+			//var image = files.ImageByPath(path);
+			//if (image != null)
+			//{
+			//	var desiredSize = new ImageSize { Width = ThumbnailWidth, Height = ThumbnailHeight };
+
+			//	const string contentType = "image/png";
+
+			//	var thumbnailCreator = new ThumbnailCreator(new FitImageResizer());
+
+			//	using (var stream = new MemoryStream(image.Image1.ToArray()))
+			//	{
+			//		return File(thumbnailCreator.Create(stream, desiredSize, contentType), contentType);
+			//	}
+			//}
+			//throw new HttpException(404, "File Not Found");
+
+
 			string extension = new FileInfo(fullPath).Extension;
 			string mimeType = "image/jpeg";
 			switch (extension)

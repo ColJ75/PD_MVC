@@ -1,0 +1,75 @@
+@model UserAddress
+
+@{
+	ViewData["Title"] = "Edit Address";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit">
+	<div class="form-horizontal">
+		<hr />
+		<div class="form-group">
+			<label for="inpFirstName">First Name</label>
+			<input id="inpFirstName" type="text" class="form-control" data-bind="value: FirstName" />
+		</div>
+
+		<div class="form-group">
+			<label asp-for="Company" class="col-md-2 control-label"></label>
+			<div class="col-md-10">
+				<input asp-for="Company" class="form-control" data-bind="value: Company" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label asp-for="Building" class="col-md-2 control-label"></label>
+			<div class="col-md-10">
+				<input asp-for="Building" class="form-control" data-bind="value: Company" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label asp-for="Street" class="col-md-2 control-label"></label>
+			<div class="col-md-10">
+				<input asp-for="Street" class="form-control" data-bind="value: Company" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label asp-for="Area" class="col-md-2 control-label"></label>
+			<div class="col-md-10">
+				<input asp-for="Area" class="form-control" data-bind="value: Company" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label asp-for="Town" class="col-md-2 control-label"></label>
+			<div class="col-md-10">
+				<input asp-for="Town" class="form-control" data-bind="value: Company" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label asp-for="County" class="col-md-2 control-label"></label>
+			<div class="col-md-10">
+				<input asp-for="County" class="form-control" data-bind="value: Company" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label asp-for="Postcode" class="col-md-2 control-label"></label>
+			<div class="col-md-10">
+				<input asp-for="Postcode" class="form-control" data-bind="value: Company" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label asp-for="Country" class="col-md-2 control-label"></label>
+			<div class="col-md-10">
+				<input asp-for="Country" class="form-control" data-bind="value: Company" />
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Save" class="btn btn-default" data-bind="click: addStudent" />
+			</div>
+		</div>
+	</div>
+</form>
+
+<div>
+	<a asp-controller="AddressBook" asp-action="Index">Back to List</a>
+</div>
